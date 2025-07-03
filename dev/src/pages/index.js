@@ -124,8 +124,8 @@ export default function Home() {
 
    useEffect(() => {
       if (
-         typeof recentOrgs.us !== undefined &&
-         typeof recentOrgs.eu !== undefined &&
+         recentOrgs.us !== undefined &&
+         recentOrgs.eu !== undefined &&
          !regionChecked
       ) {
          let chosen = 'us';
