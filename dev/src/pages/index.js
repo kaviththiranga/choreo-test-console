@@ -13,142 +13,131 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 export default function Home() {
 
-const [showModal, setShowModal] = useState(false);
-        const [selectedVideoId, setSelectedVideoId] = useState(null);
-        // Array of video objects with ID and title
-        const videos = [
-        {
-        id: 'hte82nUVOZ4',
-                title: 'University of Edinburgh: WSO2 Customer Spotlight',
-                // width: 600,
-                // height: 600,
-                // duration: '3:45'
-                thumbnail: 'https://wso2.cachefly.net/wso2/sites/all/image_resources/university-of-edinburgh-wso2-customer-spotlight.webp',
-        },
-        {
-        id: 'zdJU606084w',
-                title: 'Linqura: WSO2 Customer Spotlight',
-                // width: 600,
-                // height: 600,
-                // duration: '4:15'
-                thumbnail: 'https://wso2.cachefly.net/wso2/sites/all/image_resources/linqura-wso2-customer-spotlight.webp',
-        },
-        ];
-        const videos2 = [
-        {
-        id: '_dxku1x96Yw',
-                title: 'Mastering Choreo: A Comprehensive In-Depth Demo',
-                // width: 600,
-                // height: 600,
-                // duration: '3:45'
-                start: 301
-        },
-        ];
-        const handleClose = () => {
-setShowModal(false);
-        setSelectedVideoId(null);
-};
-        const handleShow = (videoId) => {
-setSelectedVideoId(videoId);
-        setShowModal(true);
-};
-        const [activeTab, setActiveTab] = useState('tab1');
-        const [activeTab2, setactiveTab2] = useState('cComp2');
-        const router = useRouter();
-        const { query } = router;
-        let baseIframeUrl = "";
-        const appendQueryParameters = (originalUrl, queryParams) => {
-const url = new URL(originalUrl);
-        Object.keys(queryParams).forEach((key) => {
-url.searchParams.append(key, queryParams[key]);
-        });
-        return url.toString();
-        };
-        if (Object.keys(query).length > 0) {
+   const [showModal, setShowModal] = useState(false);
+   const [selectedVideoId, setSelectedVideoId] = useState(null);
+   // Array of video objects with ID and title
+   const videos = [
+      {
+         id: 'hte82nUVOZ4',
+         title: 'University of Edinburgh: WSO2 Customer Spotlight',
+         // width: 600,
+         // height: 600,
+         // duration: '3:45'
+         thumbnail: 'https://wso2.cachefly.net/wso2/sites/all/image_resources/university-of-edinburgh-wso2-customer-spotlight.webp',
+      },
+      {
+         id: 'zdJU606084w',
+         title: 'Linqura: WSO2 Customer Spotlight',
+         // width: 600,
+         // height: 600,
+         // duration: '4:15'
+         thumbnail: 'https://wso2.cachefly.net/wso2/sites/all/image_resources/linqura-wso2-customer-spotlight.webp',
+      },
+   ];
+   const videos2 = [
+      {
+         id: '_dxku1x96Yw',
+         title: 'Mastering Choreo: A Comprehensive In-Depth Demo',
+         // width: 600,
+         // height: 600,
+         // duration: '3:45'
+         start: 301
+      },
+   ];
+   const handleClose = () => {
+      setShowModal(false);
+      setSelectedVideoId(null);
+   };
+   const handleShow = (videoId) => {
+      setSelectedVideoId(videoId);
+      setShowModal(true);
+   };
+   const [activeTab, setActiveTab] = useState('tab1');
+   const [activeTab2, setactiveTab2] = useState('cComp2');
+   const router = useRouter();
+   const { query } = router;
+   const appendQueryParameters = (originalUrl, queryParams) => {
+      const url = new URL(originalUrl);
+      Object.keys(queryParams).forEach((key) => {
+         url.searchParams.append(key, queryParams[key]);
+      });
+      return url.toString();
+   };
 
-        const baseDestinationUrl = "https://console.choreo.dev/signup_embedded";
-// const baseDestinationUrl = "https://console.st.choreo.dev/signup_embedded";
-        baseIframeUrl = appendQueryParameters(baseDestinationUrl, query);
-        
-} else {
-baseIframeUrl = "https://console.choreo.dev/signup_embedded?utm_source=direct&utm_medium=website&utm_campaign=direct";
-// baseIframeUrl = "https://console.st.choreo.dev/signup_embedded?utm_source=direct&utm_medium=website&utm_campaign=direct";
-        }
+   // REGION SELECTION LOGIC START
+   const REGIONS = {
+      us: 'https://db8b0833-87ae-4c98-8ec5-e47b557c1250.e1-us-east-azure.choreoapps.dev',
+      eu: 'https://7325af9d-faef-45c9-861a-035bfde3b6ca.e1-us-east-azure.choreoapps.dev',
+    };
+   const REGION_SELECT_PATH = '/region-select.html';
+   const SIGNUP_PATH = '/signup_embedded';
 
-// REGION SELECTION LOGIC START
-const REGIONS = {
-  us: 'https://db8b0833-87ae-4c98-8ec5-e47b557c1250.e1-us-east-azure.choreoapps.dev',
-  eu: 'https://7325af9d-faef-45c9-861a-035bfde3b6ca.e1-us-east-azure.choreoapps.dev',
-};
-const REGION_SELECT_PATH = '/region-select.html';
-const SIGNUP_PATH = '/signup_embedded';
+   const usIframeRef = useRef(null);
+   const euIframeRef = useRef(null);
+   const [regionChecked, setRegionChecked] = useState(false);
+   const [selectedRegion, setSelectedRegion] = useState(null);
+   const [iframeLoaded, setIframeLoaded] = useState({ us: false, eu: false });
+   const [recentOrgs, setRecentOrgs] = useState({ us: null, eu: null });
 
-const usIframeRef = useRef(null);
-const euIframeRef = useRef(null);
-const [regionChecked, setRegionChecked] = useState(false);
-const [selectedRegion, setSelectedRegion] = useState(null);
-const [iframeLoaded, setIframeLoaded] = useState({ us: false, eu: false });
-const [recentOrgs, setRecentOrgs] = useState({ us: null, eu: null });
+   // Compose the region-select.html URLs
+   const usRegionSelectUrl = `${REGIONS.us}${REGION_SELECT_PATH}`;
+   const euRegionSelectUrl = `${REGIONS.eu}${REGION_SELECT_PATH}`;
 
-// Compose the region-select.html URLs
-const usRegionSelectUrl = `${REGIONS.us}${REGION_SELECT_PATH}`;
-const euRegionSelectUrl = `${REGIONS.eu}${REGION_SELECT_PATH}`;
+   // Compose the signup_embedded URL for the selected region
+   let mainSignupUrl = null;
+   if (selectedRegion) {
+      if (Object.keys(query).length > 0) {
+         mainSignupUrl = appendQueryParameters(`${REGIONS[selectedRegion]}${SIGNUP_PATH}`, query);
+      } else {
+         mainSignupUrl = `${REGIONS[selectedRegion]}${SIGNUP_PATH}?utm_source=direct&utm_medium=website&utm_campaign=direct`;
+      }
+   }
 
-// Compose the signup_embedded URL for the selected region
-let mainSignupUrl = null;
-if (selectedRegion) {
-  if (Object.keys(query).length > 0) {
-    mainSignupUrl = appendQueryParameters(`${REGIONS[selectedRegion]}${SIGNUP_PATH}`, query);
-  } else {
-    mainSignupUrl = `${REGIONS[selectedRegion]}${SIGNUP_PATH}?utm_source=direct&utm_medium=website&utm_campaign=direct`;
-  }
-}
+   // Send checkRecentOrg message to both iframes when both are loaded
+   useEffect(() => {
+      if (iframeLoaded.us && usIframeRef.current) {
+         usIframeRef.current.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.us);
+      }
+      if (iframeLoaded.eu && euIframeRef.current) {
+         euIframeRef.current.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.eu);
+      }
+   }, [iframeLoaded.us, iframeLoaded.eu]);
 
-// Send checkRecentOrg message to both iframes when both are loaded
-useEffect(() => {
-  if (iframeLoaded.us && usIframeRef.current) {
-    usIframeRef.current.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.us);
-  }
-  if (iframeLoaded.eu && euIframeRef.current) {
-    euIframeRef.current.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.eu);
-  }
-}, [iframeLoaded.us, iframeLoaded.eu]);
+   // Listen for responses from iframes
+   useEffect(() => {
+      function handleMessage(event) {
+         if (
+            (
+               (event.origin === REGIONS.us || event.origin === REGIONS.eu) &&
+               typeof event.data.recentOrg !== 'undefined'
+            )
+         ) {
+            console.log('msg event from region select iframes', event);
 
-// Listen for responses from iframes
-useEffect(() => {
-  function handleMessage(event) {
-    if (
-      (
-        (event.origin === REGIONS.us || event.origin === REGIONS.eu) &&
-        typeof event.data.recentOrg !== 'undefined'
-      )
-    ) {
-      console.log('msg event from region select iframes', event);
+            const region = event.origin === REGIONS.us ? 'us' : 'eu';
+            setRecentOrgs(prev => ({ ...prev, [region]: event.data.recentOrg }));
+         }
+      }
+      window.addEventListener('message', handleMessage);
+      return () => window.removeEventListener('message', handleMessage);
+   }, [regionChecked]);
 
-      const region = event.origin === REGIONS.us ? 'us' : 'eu';
-      setRecentOrgs(prev => ({ ...prev, [region]: event.data.recentOrg }));
-    }
-  }
-  window.addEventListener('message', handleMessage);
-  return () => window.removeEventListener('message', handleMessage);
-}, [regionChecked]);
-
-useEffect(() => {
-  if (
-    typeof recentOrgs.us !== 'undefined' &&
-    typeof recentOrgs.eu !== 'undefined' &&
-    !regionChecked
-  ) {
-    let chosen = 'us';
-    if (recentOrgs.us && !recentOrgs.eu) chosen = 'us';
-    else if (!recentOrgs.us && recentOrgs.eu) chosen = 'eu';
-    else if (recentOrgs.us && recentOrgs.eu) chosen = 'us'; // both non-empty, default to us
-    else if (!recentOrgs.us && !recentOrgs.eu) chosen = 'us'; // both empty, default to us
-    console.log(`[Region Detection] Selected region: ${chosen}`);
-    setSelectedRegion(chosen);
-    setRegionChecked(true);
-  }
-}, [recentOrgs, regionChecked]);
+   useEffect(() => {
+      if (
+         typeof recentOrgs.us !== 'undefined' &&
+         typeof recentOrgs.eu !== 'undefined' &&
+         !regionChecked
+      ) {
+         let chosen = 'us';
+         if (recentOrgs.us && !recentOrgs.eu) chosen = 'us';
+         else if (!recentOrgs.us && recentOrgs.eu) chosen = 'eu';
+         else if (recentOrgs.us && recentOrgs.eu) chosen = 'us'; // both non-empty, default to us
+         else if (!recentOrgs.us && !recentOrgs.eu) chosen = 'us'; // both empty, default to us
+         console.log(`[Region Detection] Selected region: ${chosen}`);
+         setSelectedRegion(chosen);
+         setRegionChecked(true);
+      }
+   }, [recentOrgs, regionChecked]);
 
 return (
         <Layout>
@@ -1960,7 +1949,7 @@ return (
 
 
                 <Col sm={12} md={4} >
-                <iframe className='cFooterIframe optanon-category-C0001' data-src={baseIframeUrl} title="Signup IFrame"></iframe>
+                <iframe className='cFooterIframe optanon-category-C0001' data-src={mainSignupUrl} title="Signup IFrame"></iframe>
                 </Col>
             </Row>
         </Container>
