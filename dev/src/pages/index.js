@@ -106,14 +106,13 @@ if (selectedRegion) {
 
 // Send checkRecentOrg message to both iframes when both are loaded
 useEffect(() => {
-  if (usIframeRef.current) {
+  if (iframeLoaded.us && usIframeRef.current) {
     usIframeRef.current.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.us);
   }
-  if (euIframeRef.current) {
+  if (iframeLoaded.eu && euIframeRef.current) {
     euIframeRef.current.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.eu);
   }
-  console.log('iframeLoaded', iframeLoaded);
-}, [usIframeRef.current, euIframeRef.current]);
+}, [iframeLoaded.us, iframeLoaded.eu]);
 
 // Listen for responses from iframes
 useEffect(() => {
@@ -124,7 +123,7 @@ useEffect(() => {
         typeof event.data.recentOrg !== 'undefined'
       )
     ) {
-      console.log('msg event from iframes', event);
+      console.log('msg event from region select iframes', event);
 
       const region = event.origin === REGIONS.us ? 'us' : 'eu';
       setRecentOrgs(prev => {
