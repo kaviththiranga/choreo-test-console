@@ -77,8 +77,8 @@ baseIframeUrl = "https://console.choreo.dev/signup_embedded?utm_source=direct&ut
 
 // REGION SELECTION LOGIC START
 const REGIONS = {
-  us: 'https://36ebff33-384f-4683-9eb0-e7f3776bb86e.e1-us-east-azure.st.choreoapps.dev',
-  eu: 'https://c4a9aee0-7ad1-46ba-a6ef-294cd5fc923f.e1-us-east-azure.st.choreoapps.dev',
+  us: 'https://db8b0833-87ae-4c98-8ec5-e47b557c1250.e1-us-east-azure.choreoapps.dev',
+  eu: 'https://7325af9d-faef-45c9-861a-035bfde3b6ca.e1-us-east-azure.choreoapps.dev',
 };
 const REGION_SELECT_PATH = '/region-select.html';
 const SIGNUP_PATH = '/signup_embedded';
