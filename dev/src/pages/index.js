@@ -126,27 +126,30 @@ useEffect(() => {
       console.log('msg event from region select iframes', event);
 
       const region = event.origin === REGIONS.us ? 'us' : 'eu';
-      setRecentOrgs(prev => {
-        const updated = { ...prev, [region]: event.data.recentOrg };
-        // If both responses received, decide region
-        if (typeof updated.us !== 'undefined' && typeof updated.eu !== 'undefined' && !regionChecked) {
-          let chosen = 'us';
-          if (updated.us && !updated.eu) chosen = 'us';
-          else if (!updated.us && updated.eu) chosen = 'eu';
-          else if (updated.us && updated.eu) chosen = 'us'; // both non-empty, default to us
-          else if (!updated.us && !updated.eu) chosen = 'us'; // both empty, default to us
-          console.log(`[Region Detection] Selected region: ${chosen}`);
-          setSelectedRegion(chosen);
-          setRegionChecked(true);
-        }
-        return updated;
-      });
+      setRecentOrgs(prev => ({ ...prev, [region]: event.data.recentOrg }));
     }
   }
   window.addEventListener('message', handleMessage);
   return () => window.removeEventListener('message', handleMessage);
 }, [regionChecked]);
-// ... existing code ...
+
+useEffect(() => {
+  if (
+    typeof recentOrgs.us !== 'undefined' &&
+    typeof recentOrgs.eu !== 'undefined' &&
+    !regionChecked
+  ) {
+    let chosen = 'us';
+    if (recentOrgs.us && !recentOrgs.eu) chosen = 'us';
+    else if (!recentOrgs.us && recentOrgs.eu) chosen = 'eu';
+    else if (recentOrgs.us && recentOrgs.eu) chosen = 'us'; // both non-empty, default to us
+    else if (!recentOrgs.us && !recentOrgs.eu) chosen = 'us'; // both empty, default to us
+    console.log(`[Region Detection] Selected region: ${chosen}`);
+    setSelectedRegion(chosen);
+    setRegionChecked(true);
+  }
+}, [recentOrgs, regionChecked]);
+
 return (
         <Layout>
     {/* Hidden region-select iframes for US and EU */}
