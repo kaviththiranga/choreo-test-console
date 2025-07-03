@@ -77,7 +77,7 @@ export default function Home() {
    const [regionChecked, setRegionChecked] = useState(false);
    const [selectedRegion, setSelectedRegion] = useState(null);
    const [iframeLoaded, setIframeLoaded] = useState({ us: false, eu: false });
-   const [recentOrgs, setRecentOrgs] = useState({ us: null, eu: null });
+   const [recentOrgs, setRecentOrgs] = useState({ us: undefined, eu: undefined });
 
    // Compose the region-select.html URLs
    const usRegionSelectUrl = `${REGIONS.us}${REGION_SELECT_PATH}`;
@@ -124,20 +124,30 @@ export default function Home() {
 
    useEffect(() => {
       if (
-         typeof recentOrgs.us !== 'undefined' &&
-         typeof recentOrgs.eu !== 'undefined' &&
+         typeof recentOrgs.us !== undefined &&
+         typeof recentOrgs.eu !== undefined &&
          !regionChecked
       ) {
          let chosen = 'us';
-         if (recentOrgs.us && !recentOrgs.eu) chosen = 'us';
-         else if (!recentOrgs.us && recentOrgs.eu) chosen = 'eu';
-         else if (recentOrgs.us && recentOrgs.eu) chosen = 'us'; // both non-empty, default to us
-         else if (!recentOrgs.us && !recentOrgs.eu) chosen = 'us'; // both empty, default to us
+         if (recentOrgs.us != null && recentOrgs.eu == null) chosen = 'us';
+         else if (recentOrgs.us == null && recentOrgs.eu != null) chosen = 'eu';
+         else if (recentOrgs.us != null && recentOrgs.eu != null) chosen = 'us'; // both non-empty, default to us
+         else if (recentOrgs.us == null && recentOrgs.eu == null) chosen = 'us'; // both empty, default to us
          console.log(`[Region Detection] Selected region: ${chosen}`);
          setSelectedRegion(chosen);
          setRegionChecked(true);
       }
    }, [recentOrgs, regionChecked]);
+
+   // Timeout for region detection
+   useEffect(() => {
+      const timeout = setTimeout(() => {
+         setRegionChecked(true);
+         setSelectedRegion('us');
+         console.log('region detection timeout');
+      }, 120000);
+      return () => clearTimeout(timeout);
+   }, []);
 
 return (
         <Layout>
