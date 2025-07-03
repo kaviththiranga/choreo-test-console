@@ -1,0 +1,416 @@
+.cChoreoSection {
+	padding: 60px 0 60px 0;
+}
+
+.cChoreoSection a {
+  color: #000;
+
+}
+.cChoreoSection a:hover {
+color: #5567d5;
+}
+
+.cLightGreyBG {
+	background-color: #f7f8fb;
+}
+
+.cWhiteBG {
+  background-color: #fff;
+}
+
+.cChoreoSection.cIntro {
+  padding: 7rem 0 3rem 0 !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% !important;
+  background-position: right top !important;
+  background-color: #f7f8fb !important;
+}
+
+.cChoreoSection h1 {
+  color: #231F20;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 68px;
+  margin-bottom: 30px;
+}
+
+.cChoreoSection h2 {
+ 
+  margin-bottom: 30px !important;
+}
+
+.cChoreoSection p {
+	font-family: 'Plus Jakarta Sans', sans-serif !important;
+	font-size: 1rem !important;
+	line-height: 1.6rem !important;
+	color: #494848 !important;
+	word-spacing: 3px !important;
+	letter-spacing: .008rem !important;
+  font-weight: 400;
+  margin: 0 0 30px 0;
+
+}
+
+.cChoreoSection img {
+  max-width: 100%;
+}
+
+.cHeroImgChoreo {
+	margin-top: -3rem;
+}
+
+.cColwIcons {
+  text-align: center;
+}
+
+.cColwIcons img {
+  max-width: 100px;
+  margin-bottom: 20px;
+}
+
+.cColwIcons  {
+  border: solid 1px #ccc;
+  border-radius: 15px;
+  padding: 2rem;
+}
+
+
+.ACTextImg img {
+	border-radius: 10px !important;
+	border: 1px solid #e6e7ec !important;
+  margin-left: 60px;
+}
+
+.cSol {
+	padding-right: 2rem;
+}
+
+.ACText {
+	margin-top: 2rem;
+}
+
+.ACText.cTopMargin {
+  margin-top: 4rem;
+} 
+
+
+h4.FeatureText {
+	background-image: url(https://wso2.cachefly.net/wso2/sites/all/2022/choreo/choreo-feature-bullet.svg);
+	background-size: 23px;
+	background-repeat: no-repeat;
+	background-position: top 2px left 2px;
+	padding-left: 43px;
+	margin-bottom: 2.5rem;
+
+}
+
+h4.FeatureText strong {
+  display: inline-block;
+  width: 100%;
+}
+
+.cLeftAlignHeadingH2 h2 {
+  background-image: url(https://wso2.cachefly.net/wso2/sites/all/2023/choreo/solution.webp);
+  background-repeat: no-repeat;
+  background-size: 62px;
+  background-position: top -8px left -5px;
+  padding-left: 70px;
+  margin-left: 0px;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+
+.cLeftAlignHeadingH2.cGetStarted h2 {
+  background-image: url(https://wso2.cachefly.net/wso2/sites/all/2023/images/choreodev/Icons_get_started.webp);
+  background-size: 31px !important;
+  background-position: top left;
+  margin-bottom: 50px !important;
+}
+
+.cLeftAlignHeadingH2.cExperienceChoreo h2 {
+	background-image: url(https://wso2.cachefly.net/wso2/sites/all/2023/images/choreodev/Icons_Experience_Choreo-a-02-01.webp);
+  background-size: 59px;
+  background-position: top left;
+}
+
+.cAlignCenter {
+	text-align: center;
+	width: 100%;
+	display: inline-block !important;
+  margin-bottom: 15px;
+  margin-top: 0px;
+  display: block;
+
+}
+
+.cTopMarginInlineButton {
+  margin-top: 60px;
+}
+
+
+
+.ACTextImg img {
+	box-shadow: 0 3px 21px rgb(85 103 213 / 40%);
+	background-color: #ffffff;
+	border-radius: 14px !important;
+  width: 90%;
+}
+
+
+
+.videoImage h3 {
+  text-align: left;
+  font-size: 20px;
+}
+
+.videoImage img {
+  border: #000 solid 1px !important;
+  cursor: pointer;
+}
+
+
+.videoImage img:hover {
+  border: 2px solid #1eb5ae !important;
+  box-shadow: 0px 0px 30px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+a.videoImage img:hover {
+  border: 2px solid #1eb5ae !important;
+  box-shadow: 0px 0px 30px 0 rgba(151, 87, 87, 0.2) !important;
+}
+
+
+img.cNWidth {
+  max-width: 300px;
+}
+
+
+
+
+.videoModal div {
+  background-color: transparent;
+  border: none;
+}
+.videoModal {
+  /* max-width: 2000px !important; */
+  height: 100vh !important;
+  top: 5%
+}
+.videoBody {
+  width: 1030px !important;
+  left: -300px;
+  /* background-color: yellow !important; */
+  /* height: 90vh !important; */
+}
+.videoIframe {
+  height: 80vh !important;
+  width: 100% !important;
+  /* height: 100px !important; */
+  /* background-color: red !important; */
+  min-height: auto !important;
+}
+
+.videoHeader {
+  width: 800px !important;
+}
+
+.videoHeader {
+  border: none;
+}
+
+.videoHeader button {
+  opacity: 1 !important;
+  padding: 0.25em 0.25em !important;
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") !important;
+}
+
+.videoBody {
+  background-color: black !important;
+}
+
+.videoIframe {
+  /* height: 300px; */
+  width: -webkit-fill-available;
+}
+
+.cWinnerAnnouncement {
+  
+    /* background-image: url(https://wso2.cachefly.net/wso2/sites/all/2024/wso2con/theme-back.webp); */
+    background-image: url(https://wso2.cachefly.net/wso2/sites/all/2023/images/choreodev/cybertruck/cybertruck-winners-bg4-a.jpg);
+
+    /* background-image: url(https://wso2.cachefly.net/wso2/sites/all/2023/images/choreodev/cybertruck/bodybg-new.webp); */
+    
+    background-size: cover;
+    background-color: transparent !important;
+    background-repeat: no-repeat;
+    background-position: center top -6rem;
+    background-color: #000 !important;
+    background-attachment: fixed;
+
+}
+
+.CTimage {
+  box-shadow: 0 3px 21px rgb(85 103 213 / 40%);
+  background-color: #ffffff;
+  border-radius: 14px !important;
+}
+
+
+
+.zIndexFooter {
+	z-index: 999;
+	background-color: #5567d5;
+	padding: 60px 0;
+}
+
+.zIndexFooter h2 {
+	color: #ffffff !important;
+  margin-bottom: 30px !important;
+}
+
+.zIndexFooter h5 {
+  color: #fff !important;
+  margin-bottom: 30px !important;
+}
+
+.zIndexFooter p {
+  color: #fff !important;
+}
+
+.cChoreoButton {
+	background-color: #000000;
+	letter-spacing: 0.5px !important;
+	line-height: 18px;
+	text-align: center;
+	padding: 14px 34px;
+	display: inline-block;
+	text-transform: none;
+	color: #fff !important;
+	border-radius: 10px;
+	font-size: 18px;
+	font-weight: 500;
+	word-spacing: 3px;
+	border: solid 1px #000000 !important;
+	font-family: "Plus Jakarta Sans", sans-serif !important;
+	cursor: pointer;
+  text-decoration: none !important;
+}
+
+.cBottomTry {
+	background-color: #ffffff !important;
+	color: #5567d5 !important;
+	border: solid 1px #ffffff !important;
+}
+
+.cBottomTry.cBottomTry:hoveer {
+	background-color: #ffffff !important;
+	color: #5567d5 !important;
+	border: solid 1px #ffffff !important;
+}
+
+.cLeftContent {
+  text-align: center;
+}
+
+.cTextCenterd {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding-top: 60px;
+}
+
+
+
+.cPaddingBottom {
+padding-bottom: 90px;
+}
+.ACText.cResouces {
+  padding-left: 30px;
+  margin-top: 0;
+}
+
+.ACText.cResouces ul {
+  padding-left: 0;
+  margin-top: 30px;
+}
+
+.ACText.cResouces li {
+  padding-left: 60px;
+  margin-bottom: 0px;
+  list-style: none;
+  background-image: url(https://wso2.cachefly.net/wso2/sites/all/2023/images/choreodev/Icons_Blogs-01.webp);
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-position: left center;
+  height: 60px;
+  background-size: 50px;
+  line-height: 50px;
+  color: #000;
+}
+
+.ACText.cResouces li a {
+  color: #000 !important;
+}
+
+.ACText.cResouces li a:hover {
+  color: #5567d5 !important;
+}
+
+
+.cLeftContent.cMarginBottom {
+margin-bottom: 30px;
+}
+
+.cResoucesCard {
+  /* box-shadow: 0 3px 21px rgb(85 103 213 / 40%); */
+  display: inline-block;
+  border-radius: 14px !important;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: solid 1px #ccc;
+}
+
+.cResoucesCard:hover {
+  box-shadow: 0 3px 21px rgb(85 103 213 / 40%);
+cursor: pointer !important;
+  
+}
+
+
+
+
+.cResoucesCardInfo {
+  min-height: 175px;
+  padding: 30px 30px 0 30px;
+  display: inline-block;
+  width: 100%;
+
+}
+.cResoucesCardInfo  h3 {
+  line-height: 33px !important;
+}
+
+.cResoucesCardInfo h4 {
+font-weight: 600 !important;
+}
+
+
+.cReadBlogLink {
+  padding: 0 30px 30px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-block;
+  width: 100%;
+}
+
+.cSpacerLine {
+
+  margin-bottom: 10px;
+  display: inline-block;
+width: 100%;
+
+}
