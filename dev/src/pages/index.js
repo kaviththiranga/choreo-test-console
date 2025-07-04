@@ -72,12 +72,12 @@ export default function Home() {
    const REGION_SELECT_PATH = '/region-select.html';
    const SIGNUP_PATH = '/signup_embedded';
 
-   const usIframeRef = useRef(null);
-   const euIframeRef = useRef(null);
    const [regionChecked, setRegionChecked] = useState(false);
    const [selectedRegion, setSelectedRegion] = useState(null);
    const [iframeLoaded, setIframeLoaded] = useState({ us: false, eu: false });
    const [recentOrgs, setRecentOrgs] = useState({ us: undefined, eu: undefined });
+   const [usIframeNode, setUsIframeNode] = useState(null);
+   const [euIframeNode, setEuIframeNode] = useState(null);
 
    // Compose the region-select.html URLs
    const usRegionSelectUrl = `${REGIONS.us}${REGION_SELECT_PATH}`;
@@ -116,16 +116,16 @@ export default function Home() {
    useEffect(() => {
      let usTries = 0, euTries = 0;
      let usInterval, euInterval;
-     if (iframeLoaded.us && usIframeRef.current && recentOrgs.us === undefined) {
+     if (iframeLoaded.us && usIframeNode && recentOrgs.us === undefined) {
        usInterval = setInterval(() => {
          if (usTries++ > 10) return clearInterval(usInterval);
-         usIframeRef.current.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.us);
+         usIframeNode.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.us);
        }, 500);
      }
-     if (iframeLoaded.eu && euIframeRef.current && recentOrgs.eu === undefined) {
+     if (iframeLoaded.eu && euIframeNode && recentOrgs.eu === undefined) {
        euInterval = setInterval(() => {
          if (euTries++ > 10) return clearInterval(euInterval);
-         euIframeRef.current.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.eu);
+         euIframeNode.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.eu);
        }, 500);
      }
      return () => {
@@ -150,7 +150,6 @@ export default function Home() {
          setRegionChecked(true);
       }
    }, [recentOrgs, regionChecked]);
-   
 
    // Timeout for region detection
    useEffect(() => {
@@ -166,29 +165,25 @@ return (
         <Layout>
     {/* Hidden region-select iframes for US and EU */}
     <iframe
-      ref={usIframeRef}
+      ref={setUsIframeNode}
       src={usRegionSelectUrl}
       loading="eager"
       style={{ position: 'absolute' }}
-      onLoad={() => 
-        {
-          console.log('us iframe loaded');
-          setIframeLoaded(prev => ({ ...prev, us: true }));
-        }
-      }
+      onLoad={() => {
+        console.log('us iframe loaded', usIframeNode);
+        setIframeLoaded(prev => ({ ...prev, us: true }));
+      }}
       title="US Region Select"
     />
     <iframe
-      ref={euIframeRef}
+      ref={setEuIframeNode}
       src={euRegionSelectUrl}
       loading="eager"
       style={{ position: 'absolute' }}
-      onLoad={() => 
-        {
-          console.log('eu iframe loaded');
-          setIframeLoaded(prev => ({ ...prev, eu: true }));
-        }
-      }
+      onLoad={() => {
+        console.log('eu iframe loaded', euIframeNode);
+        setIframeLoaded(prev => ({ ...prev, eu: true }));
+      }}
       title="EU Region Select"
     />
     {/* Main signup iframe, only rendered after region is determined */}
