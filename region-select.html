@@ -4,7 +4,7 @@
     <title>Choreo Region Selector</title>
     <script>
         window.addEventListener('message', (event) => {
-            if (event.origin.endsWith('choreo.dev')) {
+            if (event.origin.endsWith('choreoapps.dev')) {
                 if (event.data.type === 'checkRecentOrg') {
                     const data = localStorage.getItem('recent-org');
                     event.source.postMessage({ recentOrg: data }, event.origin);
