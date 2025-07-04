@@ -93,34 +93,46 @@ export default function Home() {
       }
    }
 
-   // Send checkRecentOrg message to both iframes when both are loaded
+   // 1. Set up the message listener as early as possible (before iframes are rendered)
    useEffect(() => {
-      if (iframeLoaded.us && usIframeRef.current) {
+     function handleMessage(event) {
+       if (
+         (
+           (event.origin === REGIONS.us || event.origin === REGIONS.eu) &&
+           typeof event.data.recentOrg !== 'undefined'
+         )
+       ) {
+         console.log('msg event from region select iframes', event);
+
+         const region = event.origin === REGIONS.us ? 'us' : 'eu';
+         setRecentOrgs(prev => ({ ...prev, [region]: event.data.recentOrg }));
+       }
+     }
+     window.addEventListener('message', handleMessage);
+     return () => window.removeEventListener('message', handleMessage);
+   }, []); // Only run once
+
+   // 2. Retry sending the message until you get a response or timeout
+   useEffect(() => {
+     let usTries = 0, euTries = 0;
+     let usInterval, euInterval;
+     if (iframeLoaded.us && usIframeRef.current && recentOrgs.us === undefined) {
+       usInterval = setInterval(() => {
+         if (usTries++ > 10) return clearInterval(usInterval);
          usIframeRef.current.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.us);
-      }
-      if (iframeLoaded.eu && euIframeRef.current) {
+       }, 500);
+     }
+     if (iframeLoaded.eu && euIframeRef.current && recentOrgs.eu === undefined) {
+       euInterval = setInterval(() => {
+         if (euTries++ > 10) return clearInterval(euInterval);
          euIframeRef.current.contentWindow.postMessage({ type: 'checkRecentOrg' }, REGIONS.eu);
-      }
-   }, [iframeLoaded.us, iframeLoaded.eu]);
-
-   // Listen for responses from iframes
-   useEffect(() => {
-      function handleMessage(event) {
-         if (
-            (
-               (event.origin === REGIONS.us || event.origin === REGIONS.eu) &&
-               typeof event.data.recentOrg !== 'undefined'
-            )
-         ) {
-            console.log('msg event from region select iframes', event);
-
-            const region = event.origin === REGIONS.us ? 'us' : 'eu';
-            setRecentOrgs(prev => ({ ...prev, [region]: event.data.recentOrg }));
-         }
-      }
-      window.addEventListener('message', handleMessage);
-      return () => window.removeEventListener('message', handleMessage);
-   }, [regionChecked]);
+       }, 500);
+     }
+     return () => {
+       clearInterval(usInterval);
+       clearInterval(euInterval);
+     };
+   }, [iframeLoaded.us, iframeLoaded.eu, recentOrgs.us, recentOrgs.eu]);
 
    useEffect(() => {
       if (
@@ -138,6 +150,7 @@ export default function Home() {
          setRegionChecked(true);
       }
    }, [recentOrgs, regionChecked]);
+   
 
    // Timeout for region detection
    useEffect(() => {
@@ -156,7 +169,7 @@ return (
       ref={usIframeRef}
       src={usRegionSelectUrl}
       loading="eager"
-      style={{ position: 'absolute', width: 0, height: 0, opacity: 0, pointerEvents: 'none' }}
+      style={{ position: 'absolute' }}
       onLoad={() => 
         {
           console.log('us iframe loaded');
@@ -169,7 +182,7 @@ return (
       ref={euIframeRef}
       src={euRegionSelectUrl}
       loading="eager"
-      style={{ position: 'absolute', width: 0, height: 0, opacity: 0, pointerEvents: 'none' }}
+      style={{ position: 'absolute' }}
       onLoad={() => 
         {
           console.log('eu iframe loaded');
