@@ -8,7 +8,7 @@
             console.log('document fully loaded');
             window.addEventListener('message', (event) => {
                     console.log('msg event from origin select iframe', event);
-                    if (event.origin.endsWith('choreoapps.dev')) {
+                    if (event.origin.endsWith('choreo.dev') || event.origin.endsWith('choreoapps.dev')) {
                         if (event.data.type === 'checkRecentOrg') {
                             const data = localStorage.getItem('recent-org');
                             event.source.postMessage({ recentOrg: data }, event.origin);

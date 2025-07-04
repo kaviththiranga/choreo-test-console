@@ -157,7 +157,7 @@ export default function Home() {
          setRegionChecked(true);
          setSelectedRegion('us');
          console.log('region detection timeout');
-      }, 15000);
+      }, 5000);
       return () => clearTimeout(timeout);
    }, []);
 
