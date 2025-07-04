@@ -145,7 +145,7 @@ export default function Home() {
          setRegionChecked(true);
          setSelectedRegion('us');
          console.log('region detection timeout');
-      }, 120000);
+      }, 15000);
       return () => clearTimeout(timeout);
    }, []);
 
@@ -155,7 +155,8 @@ return (
     <iframe
       ref={usIframeRef}
       src={usRegionSelectUrl}
-      style={{ display: 'none' }}
+      loading="eager"
+      style={{ position: 'absolute', width: 0, height: 0, opacity: 0, pointerEvents: 'none' }}
       onLoad={() => 
         {
           console.log('us iframe loaded');
@@ -167,7 +168,8 @@ return (
     <iframe
       ref={euIframeRef}
       src={euRegionSelectUrl}
-      style={{ display: 'none' }}
+      loading="eager"
+      style={{ position: 'absolute', width: 0, height: 0, opacity: 0, pointerEvents: 'none' }}
       onLoad={() => 
         {
           console.log('eu iframe loaded');

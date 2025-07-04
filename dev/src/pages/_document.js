@@ -6,6 +6,9 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <link rel="prefetch" href="https://db8b0833-87ae-4c98-8ec5-e47b557c1250.e1-us-east-azure.choreoapps.dev/region-select.html" as="document" />
+        <link rel="prefetch" href="https://7325af9d-faef-45c9-861a-035bfde3b6ca.e1-us-east-azure.choreoapps.dev/region-select.html" as="document" />
+
 
       {/* <meta name="robots" content={(global.location.origin === "https://choreo.dev/") ? "index" : "noindex" }/>
       <meta name="googlebot" content={(global.location.origin === "https://choreo.dev/") ? "index" : "noindex" }></meta> */}
